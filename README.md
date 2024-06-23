@@ -15,4 +15,5 @@ Clone this repository, and then create a configuration file. All you need to get
 ```
 > [!NOTE]  
 > A database will be created if one isn't found in the specified directory
+
 Then, execute `go run . -settings "[PATH_TO_YOUR_CONFIG_FILE]"` to connect the bot up and create a websocket connection.
