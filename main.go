@@ -15,8 +15,9 @@ var settingsPath string
 var settings Settings
 
 type Settings struct {
-	Token string `json:"token"`
-	Tags  []Tag  `json:"tags"`
+	Token       string `json:"token"`
+	DatabaseDir string `json:"databaseDir"`
+	Tags        []Tag  `json:"tags"`
 }
 
 func init() {
@@ -30,6 +31,8 @@ func main() {
 
 	Token := settings.Token
 
+	connectDatabase(settings.DatabaseDir)
+
 	bot, err := discordgo.New("Bot " + Token)
 	if err != nil {
 		log.Fatal("Error starting session: ", err)
@@ -38,6 +41,7 @@ func main() {
 
 	bot.AddHandler(ping)
 	bot.AddHandler(handleTag)
+	bot.AddHandler(incrementCount)
 
 	bot.Identify.Intents = discordgo.IntentsGuildMessages
 
@@ -53,6 +57,7 @@ func main() {
 	<-sc
 
 	bot.Close()
+	db.Close()
 }
 
 func loadSettings() {
