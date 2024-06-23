@@ -9,6 +9,7 @@ import (
 
 	"github.com/bwmarrin/discordgo"
 	"github.com/rowandevving/heather/settings"
+	"github.com/rowandevving/heather/tags"
 )
 
 func init() {
@@ -31,7 +32,7 @@ func main() {
 	}
 
 	bot.AddHandler(ping)
-	bot.AddHandler(handleTag)
+	bot.AddHandler(tags.HandleTag)
 	bot.AddHandler(incrementCount)
 
 	addCommands(bot)

@@ -1,4 +1,4 @@
-package main
+package tags
 
 import (
 	"regexp"
@@ -7,13 +7,13 @@ import (
 	"github.com/rowandevving/heather/settings"
 )
 
-const tagMatch = `--([a-zA-Z0-9]+)(?:-([a-zA-Z0-9]+))?`
-
-func handleTag(session *discordgo.Session, message *discordgo.MessageCreate) {
+func HandleTag(session *discordgo.Session, message *discordgo.MessageCreate) {
 
 	if message.Author.ID == session.State.User.ID {
 		return
 	}
+
+	const tagMatch = `--([a-zA-Z0-9]+)(?:-([a-zA-Z0-9]+))?`
 
 	regex := regexp.MustCompile(tagMatch)
 	matches := regex.FindAllStringSubmatch(message.Content, -1)
