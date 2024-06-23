@@ -4,13 +4,8 @@ import (
 	"regexp"
 
 	"github.com/bwmarrin/discordgo"
+	"github.com/rowandevving/heather/settings"
 )
-
-type Tag struct {
-	Name    string `json:"name"`
-	Message string `json:"message"`
-	SubTags []Tag  `json:"subtags"`
-}
 
 const tagMatch = `--([a-zA-Z0-9]+)(?:-([a-zA-Z0-9]+))?`
 
@@ -40,7 +35,7 @@ func handleTag(session *discordgo.Session, message *discordgo.MessageCreate) {
 				}
 				processedTags[tag] = struct{}{}
 
-				for _, currentTag := range settings.Tags {
+				for _, currentTag := range settings.Config.Tags {
 					if currentTag.Name == tag {
 						session.ChannelMessageSend(message.ChannelID, currentTag.Message)
 						break
@@ -54,7 +49,7 @@ func handleTag(session *discordgo.Session, message *discordgo.MessageCreate) {
 				}
 				processedSubTags[fullTag] = struct{}{}
 
-				for _, currentTag := range settings.Tags {
+				for _, currentTag := range settings.Config.Tags {
 					if currentTag.Name == tag {
 						for _, currentSubTag := range currentTag.SubTags {
 							if currentSubTag.Name == subtag {

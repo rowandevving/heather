@@ -1,7 +1,6 @@
 package main
 
 import (
-	"encoding/json"
 	"flag"
 	"log"
 	"os"
@@ -9,29 +8,21 @@ import (
 	"syscall"
 
 	"github.com/bwmarrin/discordgo"
+	"github.com/rowandevving/heather/settings"
 )
 
-var settingsPath string
-var settings Settings
-
-type Settings struct {
-	Token       string `json:"token"`
-	DatabaseDir string `json:"databaseDir"`
-	Tags        []Tag  `json:"tags"`
-}
-
 func init() {
-	flag.StringVar(&settingsPath, "settings", "", "Path to settings file")
+	flag.StringVar(&settings.SettingsPath, "settings", "", "Path to settings file")
 	flag.Parse()
 }
 
 func main() {
 
-	loadSettings()
+	settings.LoadSettings()
 
-	Token := settings.Token
+	Token := settings.Config.Token
 
-	connectDatabase(settings.DatabaseDir)
+	connectDatabase(settings.Config.DatabaseDir)
 
 	bot, err := discordgo.New("Bot " + Token)
 	if err != nil {
@@ -42,6 +33,8 @@ func main() {
 	bot.AddHandler(ping)
 	bot.AddHandler(handleTag)
 	bot.AddHandler(incrementCount)
+
+	addCommands(bot)
 
 	bot.Identify.Intents = discordgo.IntentsGuildMessages
 
@@ -60,17 +53,8 @@ func main() {
 	db.Close()
 }
 
-func loadSettings() {
+func addCommands(bot *discordgo.Session) {
 
-	raw, err := os.ReadFile(settingsPath)
-	if err != nil {
-		log.Fatal("Couldn't read settings file: ", err)
-	}
-
-	err = json.Unmarshal([]byte(raw), &settings)
-	if err != nil {
-		log.Fatal("Couldn't parse settings file: ", err)
-	}
 }
 
 func ping(session *discordgo.Session, message *discordgo.MessageCreate) {
