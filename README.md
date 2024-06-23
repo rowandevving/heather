@@ -11,6 +11,7 @@ Clone this repository, and then create a configuration file. All you need to get
 {
   "token": "[YOUR_PRIVATE_BOT_TOKEN_HERE]"
   "databaseDir": "[PATH_TO_DATABASE_FOLDER]"
+  "prefix": "[Prefix for commands e.g. !, ?, - etc]"
 }
 ```
 > [!NOTE]  
