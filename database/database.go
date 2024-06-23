@@ -1,4 +1,4 @@
-package main
+package database
 
 import (
 	"encoding/binary"
@@ -8,25 +8,29 @@ import (
 	"github.com/dgraph-io/badger/v4"
 )
 
-var db *badger.DB
+var DB *badger.DB
 
-func connectDatabase(databasePath string) {
+func ConnectDatabase(databasePath string) {
 
 	var err error
-	db, err = badger.Open(badger.DefaultOptions(databasePath))
+	DB, err = badger.Open(badger.DefaultOptions(databasePath))
 	if err != nil {
 		log.Fatal("Error connecting to database: ", err)
 	}
 }
 
-func incrementCount(session *discordgo.Session, message *discordgo.MessageCreate) {
+func IncrementCount(session *discordgo.Session, message *discordgo.MessageCreate) {
+
+	if message.Author.ID == session.State.User.ID {
+		return
+	}
 
 	keys := [][]byte{
 		[]byte(message.Author.ID),
 		[]byte(message.GuildID),
 	}
 
-	err := db.Update(func(txn *badger.Txn) error {
+	err := DB.Update(func(txn *badger.Txn) error {
 
 		for _, key := range keys {
 			item, err := txn.Get(key)

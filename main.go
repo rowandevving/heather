@@ -8,6 +8,8 @@ import (
 	"syscall"
 
 	"github.com/bwmarrin/discordgo"
+	"github.com/rowandevving/heather/commands"
+	"github.com/rowandevving/heather/database"
 	"github.com/rowandevving/heather/settings"
 	"github.com/rowandevving/heather/tags"
 )
@@ -23,7 +25,7 @@ func main() {
 
 	Token := settings.Config.Token
 
-	connectDatabase(settings.Config.DatabaseDir)
+	database.ConnectDatabase(settings.Config.DatabaseDir)
 
 	bot, err := discordgo.New("Bot " + Token)
 	if err != nil {
@@ -33,7 +35,7 @@ func main() {
 
 	bot.AddHandler(ping)
 	bot.AddHandler(tags.HandleTag)
-	bot.AddHandler(incrementCount)
+	bot.AddHandler(database.IncrementCount)
 
 	addCommands(bot)
 
@@ -51,11 +53,11 @@ func main() {
 	<-sc
 
 	bot.Close()
-	db.Close()
+	database.DB.Close()
 }
 
 func addCommands(bot *discordgo.Session) {
-
+	bot.AddHandler(commands.StatsCommand)
 }
 
 func ping(session *discordgo.Session, message *discordgo.MessageCreate) {
