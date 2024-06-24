@@ -26,7 +26,7 @@ func IncrementCount(session *discordgo.Session, message *discordgo.MessageCreate
 	}
 
 	keys := [][]byte{
-		[]byte(message.Author.ID),
+		[]byte(message.GuildID + message.Author.ID),
 		[]byte(message.GuildID),
 	}
 
