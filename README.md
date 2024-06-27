@@ -9,8 +9,8 @@ A small discord bot I'm making with discordgo. If you have any cool suggestions 
 Clone this repository, and then create a configuration file. All you need to get started with a basic configuration is your bot's token:
 ```json
 {
-  "token": "[YOUR_PRIVATE_BOT_TOKEN_HERE]"
-  "databaseDir": "[PATH_TO_DATABASE_FOLDER]"
+  "token": "[YOUR_PRIVATE_BOT_TOKEN_HERE]",
+  "databaseDir": "[PATH_TO_DATABASE_FOLDER]",
   "prefix": "[Prefix for commands e.g. !, ?, - etc]"
 }
 ```
@@ -46,4 +46,16 @@ Tags can be configured using the `tags` array in the configuration file as so:
   }
 ]
 ```
+## Colour Roles
+Role colours allow you to define custom colour roles your members can give themselves using the `color [color preset]` command.
+
+Define colour presets in the `colors` array like this:
+
+```json
+"colors": [
+  {
+    "name": "red", //preset name
+    "hex": "#ff0000"
+  }
+]
 
