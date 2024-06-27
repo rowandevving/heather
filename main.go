@@ -58,6 +58,7 @@ func main() {
 
 func addCommands(bot *discordgo.Session) {
 	bot.AddHandler(commands.StatsCommand)
+	bot.AddHandler(commands.ColourCommand)
 }
 
 func ping(session *discordgo.Session, message *discordgo.MessageCreate) {
