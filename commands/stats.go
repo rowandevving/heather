@@ -21,7 +21,7 @@ func StatsCommand(session *discordgo.Session, message *discordgo.MessageCreate) 
 		key = []byte(message.GuildID)
 		name = "Server stats"
 	} else {
-		key = []byte(message.GuildID + message.Author.ID)
+		key = []byte(message.Author.ID)
 		name = message.Author.GlobalName + "'s stats"
 	}
 
