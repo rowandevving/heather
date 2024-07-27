@@ -15,6 +15,12 @@ type Settings struct {
 	Prefix      string   `json:"prefix"`
 	Tags        []Tag    `json:"tags"`
 	Colours     []Colour `json:"colors"`
+	Moderation  Moderation
+}
+
+type Moderation struct {
+	TrustedRole      string `json:"trustedRole"`
+	TrustedThreshold uint64 `json:"trustedThreshold"`
 }
 
 type Colour struct {

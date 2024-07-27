@@ -63,3 +63,37 @@ func IncrementCount(session *discordgo.Session, message *discordgo.MessageCreate
 		log.Fatal("Couldn't update database: ", err)
 	}
 }
+
+func GetCount(key string) uint64 {
+
+	var count uint64
+
+	err := DB.View(func(txn *badger.Txn) error {
+		item, err := txn.Get([]byte(key))
+
+		if err == badger.ErrKeyNotFound {
+			return nil
+		} else if err != nil {
+			return err
+		}
+
+		err = item.Value(func(val []byte) error {
+
+			count = binary.BigEndian.Uint64(val)
+			return nil
+		})
+
+		if err != nil {
+			return err
+		}
+
+		return nil
+
+	})
+
+	if err != nil {
+		log.Fatal("Couldn't read database: ", err)
+	}
+
+	return count
+}

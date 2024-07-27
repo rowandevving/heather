@@ -10,6 +10,7 @@ import (
 	"github.com/bwmarrin/discordgo"
 	"github.com/rowandevving/heather/commands"
 	"github.com/rowandevving/heather/database"
+	"github.com/rowandevving/heather/moderation"
 	"github.com/rowandevving/heather/settings"
 	"github.com/rowandevving/heather/tags"
 )
@@ -36,6 +37,7 @@ func main() {
 	bot.AddHandler(ping)
 	bot.AddHandler(tags.HandleTag)
 	bot.AddHandler(database.IncrementCount)
+	bot.AddHandler(moderation.HandleTrustedRole)
 
 	addCommands(bot)
 
