@@ -15,12 +15,12 @@ func ColourCommand(session *discordgo.Session, message *discordgo.MessageCreate)
 		return
 	}
 
-	args := handleCommand(message.Content, "color")
+	args := handleCommand(message.Content, "color", settings.Config.Colour.Enabled)
 	if args == nil {
 		return
 	}
 
-	for _, colour := range settings.Config.Colours {
+	for _, colour := range settings.Config.Colour.Colours {
 		if colour.Name == args[0] {
 
 			roles, err := session.GuildRoles(message.GuildID)
@@ -92,7 +92,7 @@ func convertHexToInt(hex string) int {
 
 func pruneColourRoles(session *discordgo.Session, message *discordgo.MessageCreate, excludedRole *discordgo.Role) {
 
-	for _, colour := range settings.Config.Colours {
+	for _, colour := range settings.Config.Colour.Colours {
 
 		if colour.Name != excludedRole.Name {
 

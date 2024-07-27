@@ -7,7 +7,7 @@ import (
 	"github.com/rowandevving/heather/settings"
 )
 
-func handleCommand(content string, name string) []string {
+func handleCommand(content string, name string, toggleFlag bool) []string {
 	var args []string
 
 	prefix := settings.Config.Prefix
@@ -16,7 +16,7 @@ func handleCommand(content string, name string) []string {
 		log.Fatal("No prefix defined in settings")
 	}
 
-	if !strings.HasPrefix(content, prefix) {
+	if !strings.HasPrefix(content, prefix) || !toggleFlag {
 		return nil
 	}
 
