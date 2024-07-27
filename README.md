@@ -52,10 +52,15 @@ Role colours allow you to define custom colour roles your members can give thems
 Define colour presets in the `colors` array like this:
 
 ```json
-"colors": [
-  {
-    "name": "red", //preset name
-    "hex": "#ff0000"
-  }
-]
+"color": {
 
+  "enabled": true,
+
+  "colors": [
+    {
+      "name": "red",
+      "hex": "ff0000"
+    }
+  ]
+}
+```
