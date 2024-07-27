@@ -64,3 +64,20 @@ Define colour presets in the `colors` array like this:
   ]
 }
 ```
+## Moderation
+
+# Tusted Role
+
+A Trusted Role is a role which is given to a member once they have sent a certain number of messages, making them "trusted" by the server.
+
+This threshold and said role can be configured as so:
+
+```json
+"moderation": {
+
+  ...
+  "trustedRole": "[discord role name]",
+  "trustedThreshold": 60,
+  ...
+}
+```
