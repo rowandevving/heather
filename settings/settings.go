@@ -10,7 +10,6 @@ var SettingsPath string
 var Config Settings
 
 type Settings struct {
-	Token       string `json:"token"`
 	DatabaseDir string `json:"databaseDir"`
 	Prefix      string `json:"prefix"`
 	Tags        []Tag  `json:"tags"`

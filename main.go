@@ -8,6 +8,7 @@ import (
 	"syscall"
 
 	"github.com/bwmarrin/discordgo"
+	"github.com/joho/godotenv"
 	"github.com/rowandevving/heather/commands"
 	"github.com/rowandevving/heather/database"
 	"github.com/rowandevving/heather/moderation"
@@ -23,8 +24,9 @@ func init() {
 func main() {
 
 	settings.LoadSettings()
+	godotenv.Load()
 
-	Token := settings.Config.Token
+	Token := os.Getenv("HEATHER_TOKEN")
 
 	database.ConnectDatabase(settings.Config.DatabaseDir)
 
