@@ -24,6 +24,12 @@ func init() {
 func main() {
 
 	settings.LoadSettings()
+
+	polling := make(chan bool)
+
+	go settings.Poll(polling)
+	log.Println("Watching config file for changes...")
+
 	godotenv.Load()
 
 	Token := os.Getenv("HEATHER_TOKEN")
@@ -58,6 +64,7 @@ func main() {
 
 	bot.Close()
 	database.DB.Close()
+	close(polling)
 }
 
 func addCommands(bot *discordgo.Session) {
