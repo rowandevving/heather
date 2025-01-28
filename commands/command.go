@@ -13,7 +13,7 @@ func handleCommand(content string, name string, toggleFlag bool) []string {
 	prefix := config.Global.Prefix
 
 	if prefix == "" {
-		log.Fatal("No prefix defined in settings")
+		log.Fatal("No prefix defined in config")
 	}
 
 	if !strings.HasPrefix(content, prefix) || !toggleFlag {

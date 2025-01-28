@@ -15,12 +15,12 @@ func Poll(done chan bool) {
 			log.Println("Stopping config poller")
 
 		default:
-			file, err := os.Stat(SettingsPath)
+			file, err := os.Stat(ConfigPath)
 			if err != nil {
 				if os.IsNotExist(err) {
-					log.Fatal("Settings file does not exist")
+					log.Fatal("Config file does not exist")
 				} else {
-					log.Fatal("Error getting settings file: ", err)
+					log.Fatal("Error getting config file: ", err)
 				}
 				time.Sleep(1 * time.Second)
 				continue

@@ -17,7 +17,7 @@ import (
 )
 
 func init() {
-	flag.StringVar(&config.SettingsPath, "config", "", "Path to settings file")
+	flag.StringVar(&config.ConfigPath, "config", "", "Path to config file")
 	flag.Parse()
 }
 

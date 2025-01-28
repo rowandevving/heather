@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-var SettingsPath string
+var ConfigPath string
 var Global BotConfig
 
 type BotConfig struct {
@@ -45,13 +45,13 @@ type Tag struct {
 
 func LoadConfig() {
 
-	raw, err := os.ReadFile(SettingsPath)
+	raw, err := os.ReadFile(ConfigPath)
 	if err != nil {
-		log.Fatal("Couldn't read settings file: ", err)
+		log.Fatal("Couldn't read config file: ", err)
 	}
 
 	err = json.Unmarshal([]byte(raw), &Global)
 	if err != nil {
-		log.Fatal("Couldn't parse settings file: ", err)
+		log.Fatal("Couldn't parse config file: ", err)
 	}
 }
