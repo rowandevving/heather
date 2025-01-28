@@ -45,6 +45,10 @@ type Tag struct {
 
 func LoadConfig() {
 
+	if ConfigPath == "" {
+		ConfigPath = "./config.json"
+	}
+
 	raw, err := os.ReadFile(ConfigPath)
 	if err != nil {
 		log.Fatal("Couldn't read config file: ", err)
