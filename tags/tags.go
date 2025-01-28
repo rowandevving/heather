@@ -4,7 +4,7 @@ import (
 	"regexp"
 
 	"github.com/bwmarrin/discordgo"
-	"github.com/rowandevving/heather/settings"
+	"github.com/rowandevving/heather/config"
 )
 
 func HandleTag(session *discordgo.Session, message *discordgo.MessageCreate) {
@@ -35,7 +35,7 @@ func HandleTag(session *discordgo.Session, message *discordgo.MessageCreate) {
 				}
 				processedTags[tag] = struct{}{}
 
-				for _, currentTag := range settings.Config.Tags {
+				for _, currentTag := range config.Global.Tags {
 					if currentTag.Name == tag {
 						session.ChannelMessageSend(message.ChannelID, currentTag.Message)
 						break
@@ -49,7 +49,7 @@ func HandleTag(session *discordgo.Session, message *discordgo.MessageCreate) {
 				}
 				processedSubTags[fullTag] = struct{}{}
 
-				for _, currentTag := range settings.Config.Tags {
+				for _, currentTag := range config.Global.Tags {
 					if currentTag.Name == tag {
 						for _, currentSubTag := range currentTag.SubTags {
 							if currentSubTag.Name == subtag {

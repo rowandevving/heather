@@ -4,8 +4,8 @@ import (
 	"log"
 
 	"github.com/bwmarrin/discordgo"
+	"github.com/rowandevving/heather/config"
 	"github.com/rowandevving/heather/database"
-	"github.com/rowandevving/heather/settings"
 	"github.com/rowandevving/heather/util"
 )
 
@@ -15,7 +15,7 @@ func HandleTrustedRole(session *discordgo.Session, message *discordgo.MessageCre
 		return
 	}
 
-	trustedRole := util.GetIDFromRoleName(message, session, settings.Config.Moderation.TrustedRole)
+	trustedRole := util.GetIDFromRoleName(message, session, config.Global.Moderation.TrustedRole)
 
 	key := message.Author.ID
 	roles := message.Member.Roles
@@ -26,7 +26,7 @@ func HandleTrustedRole(session *discordgo.Session, message *discordgo.MessageCre
 		}
 	}
 
-	if database.GetCount(key) >= settings.Config.Moderation.TrustedThreshold {
+	if database.GetCount(key) >= config.Global.Moderation.TrustedThreshold {
 
 		err := session.GuildMemberRoleAdd(message.GuildID, message.Author.ID, trustedRole)
 

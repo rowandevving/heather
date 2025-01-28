@@ -10,31 +10,31 @@ import (
 	"github.com/bwmarrin/discordgo"
 	"github.com/joho/godotenv"
 	"github.com/rowandevving/heather/commands"
+	"github.com/rowandevving/heather/config"
 	"github.com/rowandevving/heather/database"
 	"github.com/rowandevving/heather/moderation"
-	"github.com/rowandevving/heather/settings"
 	"github.com/rowandevving/heather/tags"
 )
 
 func init() {
-	flag.StringVar(&settings.SettingsPath, "settings", "", "Path to settings file")
+	flag.StringVar(&config.SettingsPath, "config", "", "Path to settings file")
 	flag.Parse()
 }
 
 func main() {
 
-	settings.LoadSettings()
+	config.LoadConfig()
 
 	polling := make(chan bool)
 
-	go settings.Poll(polling)
+	go config.Poll(polling)
 	log.Println("Watching config file for changes...")
 
 	godotenv.Load()
 
 	Token := os.Getenv("HEATHER_TOKEN")
 
-	database.ConnectDatabase(settings.Config.DatabaseDir)
+	database.ConnectDatabase(config.Global.DatabaseDir)
 
 	bot, err := discordgo.New("Bot " + Token)
 	if err != nil {

@@ -16,7 +16,7 @@ Clone this repository, and then create a configuration file. All you need to get
 > [!NOTE]  
 > A database will be created if one isn't found in the specified directory
 
-Set the bot token of the discord bot you wish to use in the HEATHER_TOKEN environment variable (which can also be defined in a `.env` file), then execute `go run . -settings "[PATH_TO_YOUR_CONFIG_FILE]"` to start the bot and connect to discord.
+Set the bot token of the discord bot you wish to use in the HEATHER_TOKEN environment variable (which can also be defined in a `.env` file), then execute `go run . -config "[PATH_TO_YOUR_CONFIG_FILE]"` to start the bot and connect to discord.
 
 ## Tags
 Tags are shortcodes that can be sent in a message for the bot to reply with a quick message. Useful for things like quicklinks or FAQs.

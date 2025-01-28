@@ -1,4 +1,4 @@
-package settings
+package config
 
 import (
 	"log"
@@ -29,7 +29,7 @@ func Poll(done chan bool) {
 			if file.ModTime().After(lastModified) {
 				log.Println("Config has changed, reloading...")
 				lastModified = file.ModTime()
-				LoadSettings()
+				LoadConfig()
 			}
 
 			time.Sleep(1 * time.Second)

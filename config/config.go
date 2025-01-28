@@ -1,4 +1,4 @@
-package settings
+package config
 
 import (
 	"encoding/json"
@@ -7,9 +7,9 @@ import (
 )
 
 var SettingsPath string
-var Config Settings
+var Global BotConfig
 
-type Settings struct {
+type BotConfig struct {
 	DatabaseDir string `json:"databaseDir"`
 	Prefix      string `json:"prefix"`
 	Tags        []Tag  `json:"tags"`
@@ -43,14 +43,14 @@ type Tag struct {
 	SubTags []Tag  `json:"subtags"`
 }
 
-func LoadSettings() {
+func LoadConfig() {
 
 	raw, err := os.ReadFile(SettingsPath)
 	if err != nil {
 		log.Fatal("Couldn't read settings file: ", err)
 	}
 
-	err = json.Unmarshal([]byte(raw), &Config)
+	err = json.Unmarshal([]byte(raw), &Global)
 	if err != nil {
 		log.Fatal("Couldn't parse settings file: ", err)
 	}

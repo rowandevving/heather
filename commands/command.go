@@ -4,13 +4,13 @@ import (
 	"log"
 	"strings"
 
-	"github.com/rowandevving/heather/settings"
+	"github.com/rowandevving/heather/config"
 )
 
 func handleCommand(content string, name string, toggleFlag bool) []string {
 	var args []string
 
-	prefix := settings.Config.Prefix
+	prefix := config.Global.Prefix
 
 	if prefix == "" {
 		log.Fatal("No prefix defined in settings")
